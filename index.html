@@ -2,12 +2,17 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+
+<!-- 📱 모바일 필수 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
 <title>._.</title>
 
 <style>
     body {
         margin: 0;
         height: 100vh;
+        height: 100dvh; /* 모바일 주소창 대응 */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -53,6 +58,7 @@
         color: #444;
     }
 
+    /* 고양이 */
     .cat {
         position: fixed;
         width: 110px;
@@ -62,6 +68,7 @@
         filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
     }
 
+    /* 발자국 */
     .paw {
         position: fixed;
         font-size: 18px;
@@ -80,6 +87,7 @@
 
 <body>
 
+<!-- 🐱 고양이 (절대 수정 X) -->
 <div class="cat" id="cat">
 <svg width="110" height="110" viewBox="0 0 64 64">
 
@@ -109,6 +117,7 @@
 </svg>
 </div>
 
+<!-- UI -->
 <div class="card">
     <h1>._.</h1>
 
@@ -124,20 +133,22 @@
 
 /* 메시지 */
 const messages = [
-    " 누나 보고싶을거예요 💕",
-    " 누나 오늘도 좋은 하루 보내세요 !!",
-    " 누나 밥 많이 드세요 🍚",
-    " 누나 이거 보면 웃으세요 ^_^",
-    " 누나 메롱 흐흐",
-    " 누나 야얘해주세요",
-    " 누나 파이팅하세요 !!"
+    "보고싶을거예요 💕",
+    "오늘도 좋은 하루 보내세요 !!",
+    "밥 많이 드세요 🍚",
+    "이거 보면 웃으세요 ^_^",
+    "똥 먹으세요 흐흐",
+    "메롱이다 ~!",
+    "파이팅하세요 !!"
 ];
 
 /* =========================
-   고양이 물리 (벽 튕김)
+   고양이 물리 (모바일 안정)
 ========================= */
 
 const cat = document.getElementById("cat");
+
+const size = 110;
 
 let x = window.innerWidth / 2;
 let y = window.innerHeight / 2;
@@ -145,30 +156,39 @@ let y = window.innerHeight / 2;
 let vx = (Math.random() - 0.5) * 4;
 let vy = (Math.random() - 0.5) * 4;
 
-function animate() {
+function getW() {
+    return window.innerWidth;
+}
 
-    const size = 110; // 고양이 크기
+function getH() {
+    return window.innerHeight;
+}
+
+function animate() {
 
     x += vx;
     y += vy;
 
-    // 왼쪽 / 오른쪽 벽
+    const maxX = getW() - size;
+    const maxY = getH() - size;
+
+    // 좌우 벽
     if (x <= 0) {
         x = 0;
         vx *= -1;
     }
-    if (x >= window.innerWidth - size) {
-        x = window.innerWidth - size;
+    if (x >= maxX) {
+        x = maxX;
         vx *= -1;
     }
 
-    // 위 / 아래 벽
+    // 상하 벽
     if (y <= 0) {
         y = 0;
         vy *= -1;
     }
-    if (y >= window.innerHeight - size) {
-        y = window.innerHeight - size;
+    if (y >= maxY) {
+        y = maxY;
         vy *= -1;
     }
 
