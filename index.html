@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 
-<!-- 📱 모바일 필수 -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>._.</title>
@@ -12,7 +11,7 @@
     body {
         margin: 0;
         height: 100vh;
-        height: 100dvh; /* 모바일 주소창 대응 */
+        height: 100dvh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -58,17 +57,19 @@
         color: #444;
     }
 
-    /* 고양이 */
+    /* 🐱 고양이 */
     .cat {
         position: fixed;
         width: 110px;
         height: 110px;
+        left: 0;
+        top: 0;
         pointer-events: none;
         z-index: 999;
         filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
     }
 
-    /* 발자국 */
+    /* 🐾 발자국 */
     .paw {
         position: fixed;
         font-size: 18px;
@@ -87,7 +88,7 @@
 
 <body>
 
-<!-- 🐱 고양이 (절대 수정 X) -->
+<!-- 🐱 고양이 (절대 변경 X) -->
 <div class="cat" id="cat">
 <svg width="110" height="110" viewBox="0 0 64 64">
 
@@ -137,13 +138,14 @@ const messages = [
     "오늘도 좋은 하루 보내세요 !!",
     "밥 많이 드세요 🍚",
     "이거 보면 웃으세요 ^_^",
-    "똥 먹으세요 흐흐",
-    "메롱이다 ~!",
-    "파이팅하세요 !!"
+    "똥머거 흐흐",
+    "트위터 좀 해 ㅜㅜ",
+    "메롱",
+    "파이팅 !!"
 ];
 
 /* =========================
-   고양이 물리 (모바일 안정)
+   고양이 물리 (완전 안정 버전)
 ========================= */
 
 const cat = document.getElementById("cat");
@@ -156,23 +158,15 @@ let y = window.innerHeight / 2;
 let vx = (Math.random() - 0.5) * 4;
 let vy = (Math.random() - 0.5) * 4;
 
-function getW() {
-    return window.innerWidth;
-}
-
-function getH() {
-    return window.innerHeight;
-}
-
 function animate() {
 
     x += vx;
     y += vy;
 
-    const maxX = getW() - size;
-    const maxY = getH() - size;
+    const maxX = window.innerWidth - size;
+    const maxY = window.innerHeight - size;
 
-    // 좌우 벽
+    // 좌우 충돌
     if (x <= 0) {
         x = 0;
         vx *= -1;
@@ -182,7 +176,7 @@ function animate() {
         vx *= -1;
     }
 
-    // 상하 벽
+    // 상하 충돌
     if (y <= 0) {
         y = 0;
         vy *= -1;
@@ -192,14 +186,16 @@ function animate() {
         vy *= -1;
     }
 
-    cat.style.transform = `translate(${x}px, ${y}px)`;
+    /* ⭐ 핵심 변경: transform → left/top */
+    cat.style.left = x + "px";
+    cat.style.top = y + "px";
 
     requestAnimationFrame(animate);
 }
 
 animate();
 
-/* 발자국 */
+/* 🐾 발자국 */
 let lastPawTime = 0;
 
 document.addEventListener("mousemove", (e) => {
