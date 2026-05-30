@@ -57,7 +57,7 @@
         color: #444;
     }
 
-    /* 🐱 고양이 */
+    /* 고양이 */
     .cat {
         position: fixed;
         width: 110px;
@@ -69,7 +69,7 @@
         filter: drop-shadow(0 10px 10px rgba(0,0,0,0.2));
     }
 
-    /* 🐾 발자국 */
+    /* 발자국 */
     .paw {
         position: fixed;
         font-size: 18px;
@@ -88,7 +88,7 @@
 
 <body>
 
-<!-- 🐱 고양이 (절대 변경 X) -->
+<!-- 고양이 생김새 -->
 <div class="cat" id="cat">
 <svg width="110" height="110" viewBox="0 0 64 64">
 
@@ -144,9 +144,7 @@ const messages = [
     "파이팅 !!"
 ];
 
-/* =========================
-   고양이 물리 (완전 안정 버전)
-========================= */
+/* 고양이 움직임 */
 
 const cat = document.getElementById("cat");
 
@@ -186,7 +184,6 @@ function animate() {
         vy *= -1;
     }
 
-    /* ⭐ 핵심 변경: transform → left/top */
     cat.style.left = x + "px";
     cat.style.top = y + "px";
 
@@ -195,7 +192,7 @@ function animate() {
 
 animate();
 
-/* 🐾 발자국 */
+/* 발자국 찍기 */
 let lastPawTime = 0;
 
 document.addEventListener("mousemove", (e) => {
